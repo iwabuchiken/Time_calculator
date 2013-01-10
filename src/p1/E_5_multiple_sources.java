@@ -1,5 +1,8 @@
 package p1;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,11 +22,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class E_5_multiple_sources extends JFrame implements ActionListener {
 
 	private JList<String> list;
     private DefaultListModel<String> model;
+	private JList<String> list_diff;
+    private DefaultListModel<String> model_diff;
 
     private JButton btn_time;
     private JButton btn_clear;
@@ -47,14 +54,14 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		panel = initUI_1_buttons(panel);
 		
 		// Menues
-		JMenuBar menubar = initUI_menues(this);
+		JMenuBar menubar = initUI_2_menues(this);
 		
 		setJMenuBar(menubar);
 		
 		// List
-		initUI_3_list();
+		initUI_3_list(panel);
 		
-		panel.add(list);
+//		panel.add(list);
 		
 		//
 		panel.setLayout(null);
@@ -64,14 +71,43 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 	}//private void initUI()
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void initUI_3_list() {
+	private void initUI_3_list(JPanel panel) {
 		// TODO Auto-generated method stub
+		// List for time labels
 		model = new DefaultListModel();
         list = new JList(model);
         list.setBounds(200, 30, 220, 150);
+        
+        // List for diff labels
+		model_diff = new DefaultListModel();
+        list_diff = new JList(model_diff);
+        list_diff.setBounds(200, 200, 220, 100);
+        
+        // Listener
+        list_diff.addListSelectionListener(new ListSelectionListener(){
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				String item = (String) list_diff.getSelectedValue();
+				
+				Toolkit kit = Toolkit.getDefaultToolkit();
+				Clipboard clip = kit.getSystemClipboard();
+				
+				StringSelection ss = new StringSelection(item);
+				
+				clip.setContents(ss, ss);
+				
+				model_diff.addElement(item);
+				
+			}});
+        
+        // Add to panel
+        panel.add(list);
+        panel.add(list_diff);
 	}
 
-	private JMenuBar initUI_menues(JFrame frame) {
+	private JMenuBar initUI_2_menues(JFrame frame) {
 		// TODO Auto-generated method stub
 		JMenuBar menubar = new JMenuBar();
         ImageIcon icon = new ImageIcon(getClass().getResource("icon_menu_file_50x37.png"));
@@ -241,8 +277,9 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		long e_time = c_end.getTimeInMillis();
 
 		
-		model.addElement(String.valueOf(s_time));
-		model.addElement(String.valueOf(e_time));
+//		model.addElement(String.valueOf(s_time));
+//		model.addElement(String.valueOf(e_time));
+		model_diff.addElement(String.valueOf(e_time));
 		
 	}//private void actionPerformed_cal(ActionEvent e)
 
