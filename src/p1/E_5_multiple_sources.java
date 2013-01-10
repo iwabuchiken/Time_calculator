@@ -1,5 +1,7 @@
 package p1;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -21,6 +23,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -98,10 +101,27 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 				
 				clip.setContents(ss, ss);
 				
-				model_diff.addElement(item);
+//				model_diff.addElement(item);
 				
 			}});
         
+//        // Scroll pane
+////        JScrollPane sp = new JScrollPane();
+////        JScrollPane sp_diff = new JScrollPane();
+//        JScrollPane sp = new JScrollPane(list);
+//        JScrollPane sp_diff = new JScrollPane(list_diff);
+//        
+//        sp.setBackground(Color.blue);
+//        sp.setVisible(true);
+////        sp.getViewport().setView(list);
+////        sp.setPreferredSize(new Dimension(220, 150));
+////        
+////        sp_diff.getViewport().setView(list_diff);
+////        sp_diff.setPreferredSize(new Dimension(220, 100));
+////
+//        panel.add(sp);
+//        panel.add(sp_diff);
+
         // Add to panel
         panel.add(list);
         panel.add(list_diff);
@@ -276,10 +296,25 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		
 		long e_time = c_end.getTimeInMillis();
 
+		long diff = e_time - s_time;
+		
+		String digit_time = this.convert_millsec_to_digit_label(diff);
 		
 //		model.addElement(String.valueOf(s_time));
 //		model.addElement(String.valueOf(e_time));
-		model_diff.addElement(String.valueOf(e_time));
+		if (model_diff.getSize() >= 4) {
+			
+			model_diff.remove(0);
+			
+			model_diff.addElement(String.valueOf(digit_time));
+			
+		} else {//if (model_digit_time.getSize() > 4)
+			
+			model_diff.addElement(String.valueOf(digit_time));
+			
+		}//if (model_diff.getSize() > 4)
+		
+//		model_diff.addElement(String.valueOf(e_time));
 		
 	}//private void actionPerformed_cal(ActionEvent e)
 
@@ -287,6 +322,8 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		
 		model.clear();
+		
+		model_diff.clear();
 		
 	}//private void actionPerformed_clear(ActionEvent e)
 
@@ -322,5 +359,69 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
         model.addElement(" Time: " + s);
 		
 	}//private void actionPerformed_get_time()
+
+	public static String  convert_millsec_to_digit_label(long millSeconds) {
+		/*----------------------------
+		 * Steps
+		 * 1. Prepare variables
+		 * 2. Build a string
+		 * 3. Return
+			----------------------------*/
+		/*----------------------------
+		 * 1. Prepare variables
+			----------------------------*/
+		int sec_time = (int)(millSeconds / 1000);
+		
+		int seconds = sec_time % 60;
+		
+		int minutes = sec_time / 60;
+		
+		int hours = sec_time / (60 * 60);
+		
+		if (minutes > 59) {
+			
+			minutes = 59;
+			
+		}//if (minutes == condition)
+		
+//		int digit_seconds = sec_time % 60;
+		
+		/*----------------------------
+		 * 2. Build a string
+			----------------------------*/
+		StringBuilder sb = new StringBuilder();
+		
+		if (String.valueOf(hours).length() < 2) {
+			
+			sb.append("0");
+			
+		}//if (String.valueOf(hours).length() < 2)
+		
+		sb.append(String.valueOf(hours));
+		sb.append(":");
+
+		if (String.valueOf(minutes).length() < 2) {
+			
+			sb.append("0");
+			
+		}//if (String.valueOf(minutes).length() < 2)
+		
+		sb.append(String.valueOf(minutes));
+		sb.append(":");
+
+		if (String.valueOf(seconds).length() < 2) {
+			
+			sb.append("0");
+			
+		}//if (String.valueOf(seconds).length() < 2)
+
+		sb.append(String.valueOf(seconds));
+		
+		/*----------------------------
+		 * 3. Return
+			----------------------------*/
+		return sb.toString();
+		
+	}//public static void  convert_millsec_to_digit_label()
 
 }
