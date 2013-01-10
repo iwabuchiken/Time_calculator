@@ -11,8 +11,10 @@ pushd ..\VideoPlayer_tests\src
 
 javac 
 
-[Git]
+[Git]--------------------------------------------------
 copy ..\ImageFileManager6\.gitignore .
+
+git tag -a v1.0 -m
 
 g init
 g a .
@@ -38,19 +40,24 @@ g c -a
 gitk
 
 
-[Git for mm]
+[Git for mm]--------------------------------------------------
 pushd C:\WORKS\WORKSPACES_ANDROID\FM
 
-[svn]
+[svn]--------------------------------------------------
 pushd C:\WORKS\WORKSPACES_ANDROID\Sample\05_Techbooster
 svn co https://techbooster.googlecode.com/svn/trunk/ContextMenu/ ContextMenu
 
-[GIMP]
+[GIMP]--------------------------------------------------
 pushd C:\WORKS\WORKSPACES_ANDROID\GIMP\Icons
 
-[Android]
+[Android]--------------------------------------------------
 "Failed to pull selection"
 	=> REF: http://yamato-iphone.blogspot.jp/2011/05/failed-to-pull-selection.html
 	
-[sqlite3]
+[sqlite3]--------------------------------------------------
 pushd C:\Users\IwabuchiKen\Desktop
+
+[jar]--------------------------------------------------
+pushd C:\WORKS\WS\WS_Android\Time_calculator\bin
+echo Main-Class: p1.E_5_multiple_sources > manifest_e5.txt
+jar cvfm p1_e5.jar manifest_e5.txt p1/E_5*.class p1/*.png
