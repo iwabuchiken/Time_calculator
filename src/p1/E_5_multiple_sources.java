@@ -2,6 +2,7 @@ package p1;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -86,6 +88,9 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
         list_diff = new JList(model_diff);
         list_diff.setBounds(200, 200, 220, 100);
         
+        list.setFont(new Font("Century", Font.BOLD, 18));
+        list_diff.setFont(new Font("Century", Font.BOLD, 18));
+        
         // Listener
         list_diff.addListSelectionListener(new ListSelectionListener(){
 
@@ -104,7 +109,25 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 //				model_diff.addElement(item);
 				
 			}});
-        
+
+        list.addListSelectionListener(new ListSelectionListener(){
+
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				String item = (String) list.getSelectedValue();
+				
+				Toolkit kit = Toolkit.getDefaultToolkit();
+				Clipboard clip = kit.getSystemClipboard();
+				
+				StringSelection ss = new StringSelection(item);
+				
+				clip.setContents(ss, ss);
+				
+//				model_diff.addElement(item);
+				
+			}});
+
 //        // Scroll pane
 ////        JScrollPane sp = new JScrollPane();
 ////        JScrollPane sp_diff = new JScrollPane();
@@ -260,7 +283,8 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		
 		long duration = 0;
 		
-		if (model.getSize() < 4) {
+//		if (model.getSize() < 4) {
+		if (model.getSize() < 2) {
 			
 			return;
 			
@@ -268,9 +292,10 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		
 		//
 //		String[] start_time = model.get(1).split(" ")[1].split(":");
-		String[] start_time = model.get(1).split(" ")[2].split(":");
+//		String[] start_time = model.get(1).split(" ")[2].split(":");
+		String[] start_time = model.get(model.size() - 2).split(" ")[0].split(":");
 		
-		String[] end_time = model.get(3).split(" ")[2].split(":");
+		String[] end_time = model.get(model.size() - 1).split(" ")[0].split(":");
 		
 //		model.addElement(model.get(1).split(" ")[2]);
 //		model.addElement(start_time[0]);
@@ -343,20 +368,24 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
         	if (num >= 4) {
 				
         		model.remove(0);
-        		model.remove(0);
+//        		model.remove(0);
         		
 			}//if (num == condition)
         	
 //            model.clear();
         }
         
-    	String message = " Event Id: ACTION_PERFORMED ("
-    					+ String.valueOf(e.getID()
-    					+ ")");
-        	
-        model.addElement(message);
+        long time_now = get_millsec_now();
         
-        model.addElement(" Time: " + s);
+        String s_time_now = get_time_Label(time_now);
+        
+//    	String message = " Event Id: ACTION_PERFORMED ("
+//    					+ String.valueOf(e.getID()
+//    					+ ")");
+        	
+        model.addElement(s_time_now);
+        
+//        model.addElement(" Time: " + s);
 		
 	}//private void actionPerformed_get_time()
 
@@ -423,5 +452,21 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		return sb.toString();
 		
 	}//public static void  convert_millsec_to_digit_label()
+
+	public static String get_time_Label(long millSec) {
+		
+		 SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss MM/dd/yyyy ");
+		 
+		return sdf1.format(new Date(millSec));
+		
+	}//public static String get_time_Label(long millSec)
+
+	public static long get_millsec_now() {
+		
+		Calendar cal = Calendar.getInstance();
+		
+		return cal.getTime().getTime();
+		
+	}//public static long get_millsec_now()
 
 }
