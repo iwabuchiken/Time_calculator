@@ -1,3 +1,8 @@
+REM *****************************************
+REM 	Created at: 15:37:26 01/10/2013
+REM 	Author: Iwabuchi Ken(iwabuchi.k.2010@gmail.com)
+REM 	Copyright: 
+REM *****************************************
 @echo off
 
 if "%1"=="" (
@@ -45,11 +50,13 @@ REM		goto :end
 
 )
 
+goto :start
+
 :hoge
 echo ^<%~1^>
 exit /b
 
-
+:start
 REM -------------------------------------
 REM		Get trunk
 REM -------------------------------------
@@ -59,14 +66,18 @@ for /f "delims=." %%a in ("%2") do (
 
 REM -------------------------------------
 pushd C:\WORKS\WS\WS_Android\Time_calculator\bin
-echo Main-Class: %1.%2 > manifest_%2.txt
-echo Manifest file created.
-echo Executing: jar cvfm %1_%2.jar manifest_%2.txt %1/%trunk%*.class %1/*.png
-jar cvfm %1_%2.jar manifest_%2.txt %1/%trunk%*.class %1/*.png
+echo.
+echo Creating manifest file...
+echo.
+echo Main-Class: %1.%trunk% > manifest_%trunk%.txt
+echo Manifest file created: manifest_%trunk%.txt
+echo.
+echo Executing: jar cvfm %1_%trunk%.jar manifest_%trunk%.txt %1/%trunk%*.class %1/*.png
+jar cvfm %1_%trunk%.jar manifest_%trunk%.txt %1/%trunk%*.class %1/*.png
 
-echo 
+echo.
 echo Processing done. Going back to the root directory.
-echo 
+echo.
 cd ..
 
 
