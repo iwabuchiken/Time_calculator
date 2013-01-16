@@ -53,9 +53,12 @@ public class TC extends JFrame {
 	/*********************************
 	 * Component: List-related
 	 *********************************/
-	private static JList<String> timeList;
+//	private static JList<String> timeList;
+	private static CheckBoxList timeList;
+	
 	private static JList<String> timeDiffList;
-	private static DefaultListModel<JPanel> timeModel;
+//	private static DefaultListModel<JPanel> timeModel;
+//	private static CheckBoxList timeModel;
 	private static DefaultListModel<String> diffModel;
 	
 	/*********************************
@@ -179,8 +182,11 @@ public class TC extends JFrame {
 		 * Lists
 		 *********************************/
 		// Time list
-		timeModel = new DefaultListModel();
-		timeList = new JList(timeModel);
+//		timeModel = new DefaultListModel();
+//		timeList = new JList(timeModel);
+		timeList = new CheckBoxList();
+		
+//		timeList.dlm.addElement("string");
 		
 		timeListPane.setViewportView(timeList);
 		
@@ -382,13 +388,15 @@ public class TC extends JFrame {
 		private void actionPerformed_get_time(ActionEvent e) {
 			// TODO Auto-generated method stub
 
-			TimeItem ti = new TimeItem();
+			timeList.dlm.addElement("string");
 			
-			String timeLabel = TC.get_time_Label(TC.get_millsec_now());
-			
-			ti.label.setText(timeLabel);
-			
-			TC.timeModel.addElement(ti);
+//			TimeItem ti = new TimeItem();
+//			
+//			String timeLabel = TC.get_time_Label(TC.get_millsec_now());
+//			
+//			ti.label.setText(timeLabel);
+//			
+//			TC.timeModel.addElement(ti);
 //			TC.timeModel.addElement(ti.getTimeItem());
 			
 //			TC.timeModel.addElement("hi");
