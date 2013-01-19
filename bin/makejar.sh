@@ -56,9 +56,22 @@ getTrunk $class_name
 #==============================
 #
 #	Create manifest file,
+#
+#==============================
+echo Main-Class: $pkg_name.$trunk > manifest_$trunk.txt
+echo Manifest file created: manifest_$trunk.txt
+
+#==============================
+#
 #	Construct a command line for generating a jar file,
 #
 #==============================
+
+echo Executing: jar cvfm $pkg_name_$trunk.jar manifest_$trunk.txt $pkg_name/$trunk*.class $pkg_name/*.png
+jar cvfm $pkg_name_$trunk.jar manifest_$trunk.txt $pkg_name/$trunk*.class $pkg_name/*.png
+
+
+
 
 
 

@@ -51,7 +51,23 @@ echo class_name=$class_name
 
 getTrunk $class_name
 
-echo trunk=$trunk
+#echo trunk=$trunk
+
+#==============================
+#
+#	Create manifest file,
+#
+#==============================
+echo Main-Class: $pkg_name.$trunk > manifest_$trunk.txt
+echo Manifest file created: manifest_$trunk.txt
+
+#==============================
+#
+#	Construct a command line for generating a jar file,
+#
+#==============================
+
+echo Manifest file created: manifest_%trunk%.txt
 
 #echo pkg_name=$pkg_name
 #echo class_name=$class_name
