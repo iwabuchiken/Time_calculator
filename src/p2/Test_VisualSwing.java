@@ -8,7 +8,6 @@ import javax.swing.UIManager;
 
 import org.dyno.visual.swing.layouts.GroupLayout;
 
-
 //VS4E -- DO NOT REMOVE THIS LINE!
 public class Test_VisualSwing extends JFrame {
 
