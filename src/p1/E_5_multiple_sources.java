@@ -195,6 +195,8 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		
 		btn_time.setBounds(50, 60, 130, 50);
 		
+		btn_time.setMnemonic(KeyEvent.VK_G);
+		
 		btn_time.addActionListener(this);
 		
 		// Calculate the duration
