@@ -83,6 +83,7 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
         list = new JList(model);
         list.setBounds(200, 30, 220, 150);
         
+        
         // List for diff labels
 		model_diff = new DefaultListModel();
         list_diff = new JList(model_diff);
@@ -204,6 +205,8 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		
 		btn_calculate.setBounds(50, 120, 130, 50);
 		
+		btn_calculate.setMnemonic(KeyEvent.VK_C);
+		
 		btn_calculate.addActionListener(this);
 		
 		// Clear the labels
@@ -211,6 +214,8 @@ public class E_5_multiple_sources extends JFrame implements ActionListener {
 		btn_clear = new JButton(map.get("cl"));
 		
 		btn_clear.setBounds(50, 180, 130, 50);
+		
+		btn_clear.setMnemonic(KeyEvent.VK_L);
 		
 		btn_clear.addActionListener(this);
 		
